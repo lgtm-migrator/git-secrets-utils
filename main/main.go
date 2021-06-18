@@ -13,10 +13,10 @@ import (
 var Version = "SNAPSHOT"
 
 // AppName of this application
-var AppName = "CommandLineToolUtil"
+var AppName = "GitSecretsUtils"
 
 // AppUsage of this application
-var AppUsage = "A Command Line Tool"
+var AppUsage = "Git Secrets Utils"
 
 func main() {
 	app := cli.NewApp()
@@ -30,14 +30,7 @@ func main() {
 		commandEntry,
 	}
 
-	daemonCommands, err := createDaemonCommands(AppName, AppUsage)
-
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
-
-	app.Commands = append(commonCommands, daemonCommands...)
+	app.Commands = append(commonCommands)
 
 	sort.Sort(cli.CommandsByName(app.Commands))
 

@@ -2,7 +2,7 @@
 
 # cli file name
 # change this please
-OUTPUT_FILENAME="cli"
+OUTPUT_FILENAME="git-secrets-utils"
 
 # platforms
 PLATFORMS="darwin/amd64"

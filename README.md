@@ -1,22 +1,8 @@
-# Golang Project **Template**
+# Git Secrets Utils
 
-![](https://res.cloudinary.com/digf90pwi/image/upload/v1581731174/1_8bPiDNL1K1ZdK9O_T5IVKw_xshtjh.png)
+> a simpel tool convert git secrets scan result to excel sheet
 
-The template for golang project
-
-## Setup Project
-
-* [![](https://res.cloudinary.com/digf90pwi/image/upload/c_scale,r_14,w_98/a_0/v1581731363/%E6%8D%95%E8%8E%B7_iqiuwl.png)](https://github.com/Soontao/go-project-template/generate) to create new project 
-* Modify [info.repository_url](./chglog) as your own project url
-* Update your repo url in `go.mod` file
-* Run `go mod vendor` after development (remember `vendor` your deps after add any libraries)
-* Write your application
-* (Optional) Create `LICENSE` 
-
-## Setup CI
-
-* Add `CODECOV_TOKEN` to Github Action `Secret`
-
-## Release Version
-
-* Run `./release.sh VERSION` like `./release.sh v0.0.1` to release a version
+```bash
+git-secrets --scan -r . 2>error_logs
+git-secrets-utils convert -f error_logs -o error_logs_formatted
+```

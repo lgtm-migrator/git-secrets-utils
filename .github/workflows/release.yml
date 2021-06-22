@@ -30,7 +30,6 @@ jobs:
         env:
           VERSION: ${{ steps.tagName.outputs.tag }}
 
-
       - name: create Release
         id: create_release
         uses: actions/create-release@v1
@@ -45,9 +44,8 @@ jobs:
       - name: upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
-          working-directory: main
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/*
+          file: main/build/*
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true

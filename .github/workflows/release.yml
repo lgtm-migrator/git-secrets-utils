@@ -45,6 +45,7 @@ jobs:
       - name: upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
+          working-directory: main
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/*
           tag: ${{ github.ref }}

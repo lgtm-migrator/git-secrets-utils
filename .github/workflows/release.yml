@@ -26,8 +26,10 @@ jobs:
 
       - name: build
         run: bash build.sh
+        working-directory: main
         env:
           VERSION: ${{ steps.tagName.outputs.tag }}
+
 
       - name: create Release
         id: create_release

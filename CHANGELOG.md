@@ -1,4 +1,14 @@
 
+<a name="0.2.0"></a>
+## [0.2.0](https://github.com/USERNAME/REPONAME/compare/0.1.0...0.2.0) (2021-06-22)
+
+### Common
+
+* **ci:** update
+* **ci:** update
+* **release:** new version
+
+
 <a name="0.1.0"></a>
 ## 0.1.0 (2021-06-21)
 

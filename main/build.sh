@@ -22,6 +22,9 @@ CURRENT_DIRECTORY=${PWD##*/}
 OUTPUT=build/${SOURCE_FILE:-$OUTPUT_FILENAME} # if no src file given, use current dir name
 LDFLAGS="-ldflags \"-X main.Version=${VERSION}\" -mod=vendor"
 
+# clean old build artifacts
+rm -r build
+
 for PLATFORM in $PLATFORMS; do
   GOOS=${PLATFORM%/*}
   GOARCH=${PLATFORM#*/}
@@ -30,8 +33,9 @@ for PLATFORM in $PLATFORMS; do
   CMD="GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
   echo "${CMD}"
   eval $CMD || FAILURES="${FAILURES} ${PLATFORM}"
-  zip -j "${BIN_FILENAME}.zip" ${BIN_FILENAME}
-  rm ${BIN_FILENAME}
+  mv ${BIN_FILENAME} ${OUTPUT_FILENAME}
+  zip -j "${BIN_FILENAME}.zip" ${OUTPUT_FILENAME}
+  rm ${OUTPUT_FILENAME}
 done
 
 # ARM builds
@@ -40,8 +44,9 @@ if [[ $PLATFORMS_ARM == *"linux"* ]]; then
   CMD="GOOS=linux GOARCH=arm64 go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
   echo "${CMD}"
   eval $CMD || FAILURES="${FAILURES} ${PLATFORM}"
-  zip -j "${BIN_FILENAME}.zip" ${BIN_FILENAME}
-  rm ${BIN_FILENAME}
+  mv ${BIN_FILENAME} ${OUTPUT_FILENAME}
+  zip -j "${BIN_FILENAME}.zip" ${OUTPUT_FILENAME}
+  rm ${OUTPUT_FILENAME}
 fi
 
 for GOOS in $PLATFORMS_ARM; do
@@ -52,8 +57,9 @@ for GOOS in $PLATFORMS_ARM; do
     CMD="GOARM=${GOARM} GOOS=${GOOS} GOARCH=${GOARCH} go build ${LDFLAGS} -o ${BIN_FILENAME} $@"
     echo "${CMD}"
     eval "${CMD}" || FAILURES="${FAILURES} ${GOOS}/${GOARCH}${GOARM}"
-    zip -j "${BIN_FILENAME}.zip" ${BIN_FILENAME}
-    rm ${BIN_FILENAME}
+    mv ${BIN_FILENAME} ${OUTPUT_FILENAME}
+    zip -j "${BIN_FILENAME}.zip" ${OUTPUT_FILENAME}
+    rm ${OUTPUT_FILENAME}
   done
 done
 
